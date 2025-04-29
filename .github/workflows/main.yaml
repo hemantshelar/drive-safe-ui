@@ -24,11 +24,17 @@ jobs:
       - name: Build the application
         run: npm run build --prod
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./dist/car-rent
+      - name: Deploy to gh pages
+        run: |
+          npx angular-cli-ghpages --dir=dist/car-rent
+        env:
+          CI: true
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    #*- name: Deploy to GitHub Pages
+    #    uses: peaceiris/actions-gh-pages@v3
+    #    with:
+    #      github_token: ${{ secrets.GH_TOKEN }}
+    #      publish_dir: ./dist/car-rent
 
       #- name: Deploy to Azure
       #  uses: azure/webapps-deploy@v2
